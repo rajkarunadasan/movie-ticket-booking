@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Booking Confirmed &#10003;</h1>
+<div class="ticket">
+  <p class="meta">E-TICKET &middot; Booking ID</p>
+  <p class="ref">{{ booking.reference }}</p>
+  <h2>{{ booking.title }}</h2>
+  <p>{{ booking.hall }} &middot; {{ booking.show_time }}</p>
+  <p>Seats: <strong>{{ seats|join(', ') }}</strong></p>
+  <p>Paid: <strong>&#8377;{{ booking.total }}</strong> via {{ booking.payment }}</p>
+  <p class="meta">Booked on {{ booking.created_at }}. Show this ticket at the counter.</p>
+</div>
+<p><a class="btn secondary" href="{{ url_for('booking.my_bookings') }}">My bookings</a></p>
+{% endblock %}

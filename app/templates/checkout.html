@@ -6,6 +6,15 @@
   <p class="meta">{{ show.hall }} &middot; {{ show.show_time }}</p>
   <p>Seats: <strong>{{ chosen|join(', ') }}</strong></p>
   <p>Total: <strong>&#8377;{{ total }}</strong> ({{ chosen|length }} &times; &#8377;{{ show.price }})</p>
-  <!-- PAYMENT -->
+  <form method="post" novalidate>
+    <input type="hidden" name="seats" value="{{ chosen|join(',') }}">
+    <label for="payment">Payment method (simulated)</label>
+    <select id="payment" name="payment">
+      <option value="UPI">UPI (Google Pay / PhonePe)</option>
+      <option value="Card">Credit / Debit Card</option>
+      <option value="Wallet">Wallet (Paytm / Amazon Pay)</option>
+    </select>
+    <p><button class="btn gold" type="submit">Pay &#8377;{{ total }}</button></p>
+  </form>
 </div>
 {% endblock %}
