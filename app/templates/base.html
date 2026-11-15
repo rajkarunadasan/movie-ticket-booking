@@ -10,6 +10,7 @@
 <header>
   <nav>
     <span class="brand">&#127903; CineBook</span>
+    {% if g.user %}<span class="user">{{ g.user['name'] }}</span><a href="{{ url_for('auth.logout') }}">Log out</a>{% else %}<a href="{{ url_for('auth.login') }}">Log in</a><a href="{{ url_for('auth.register') }}">Register</a>{% endif %}
     <!-- NAV -->
   </nav>
 </header>
