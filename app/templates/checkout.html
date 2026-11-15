@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Booking Summary</h1>
+<div class="card" style="max-width:480px">
+  <h3>{{ show.title }}</h3>
+  <p class="meta">{{ show.hall }} &middot; {{ show.show_time }}</p>
+  <p>Seats: <strong>{{ chosen|join(', ') }}</strong></p>
+  <p>Total: <strong>&#8377;{{ total }}</strong> ({{ chosen|length }} &times; &#8377;{{ show.price }})</p>
+  <!-- PAYMENT -->
+</div>
+{% endblock %}
