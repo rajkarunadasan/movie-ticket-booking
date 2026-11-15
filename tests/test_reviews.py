@@ -30,3 +30,10 @@ def test_invalid_review_rejected(client):
 def test_review_unknown_movie_404(client):
     signup_and_login(client)
     assert client.post("/movies/999/review", data={"stars": "5", "comment": "x"}).status_code == 404
+
+
+def test_stars_render_as_symbols_not_entities(client):
+    signup_and_login(client)
+    client.post("/movies/1/review", data={"stars": "4", "comment": "Nice"})
+    page = client.get("/movies/1").data.decode()
+    assert "★★★★" in page and "&amp;#9733" not in page

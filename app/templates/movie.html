@@ -13,7 +13,7 @@
   </tbody>
 </table>
 <h2>Ratings &amp; Reviews
-  {% if average %}<span class="stars">{{ '&#9733;' * (average|round|int) }}</span> <span class="meta">{{ average }} / 5 ({{ reviews|length }})</span>{% endif %}</h2>
+  {% if average %}<span class="stars">{{ '★' * (average|round|int) }}</span> <span class="meta">{{ average }} / 5 ({{ reviews|length }})</span>{% endif %}</h2>
 {% if g.user %}
 <form method="post" action="{{ url_for('movies.add_review', movie_id=movie.id) }}" class="card" novalidate>
   <label for="stars">Your rating</label>
@@ -26,7 +26,7 @@
 <p class="meta"><a href="{{ url_for('auth.login') }}">Log in</a> to rate this movie.</p>
 {% endif %}
 {% for r in reviews %}
-<div class="card" style="margin-top:10px"><span class="stars">{{ '&#9733;' * r.stars }}</span> <strong>{{ r.name }}</strong><br>{{ r.comment }}</div>
+<div class="card" style="margin-top:10px"><span class="stars">{{ '★' * r.stars }}</span> <strong>{{ r.name }}</strong><br>{{ r.comment }}</div>
 {% else %}
 <p class="meta">No reviews yet.</p>
 {% endfor %}
