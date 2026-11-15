@@ -22,6 +22,9 @@ def create_app(test_config=None):
     from . import movies
     app.register_blueprint(movies.bp)
 
+    from . import booking
+    app.register_blueprint(booking.bp)
+
     # BLUEPRINTS
 
     @app.errorhandler(404)

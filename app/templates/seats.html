@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Select Seats</h1>
+<p class="meta">{{ show.title }} &middot; {{ show.hall }} &middot; {{ show.show_time }} &middot; &#8377;{{ show.price }} per seat</p>
+<form method="post" class="card" style="max-width:none">
+  <div class="screen">SCREEN THIS WAY</div>
+  {% for r in rows %}
+  <div class="seatrow"><b>{{ r }}</b>
+    {% for n in range(1, per_row + 1) %}
+      {% set code = r ~ n %}
+      <label class="seat {{ 'taken' if code in taken }}">
+        <input type="checkbox" name="seats" value="{{ code }}" {{ 'disabled' if code in taken }}>
+        <span>{{ n }}</span>
+      </label>
+    {% endfor %}
+  </div>
+  {% endfor %}
+  <p class="legend">Green = available &nbsp;|&nbsp; Gold = selected &nbsp;|&nbsp; Grey = booked &nbsp;|&nbsp; Max 6 seats</p>
+  <p style="text-align:center"><button class="btn gold" type="submit">Continue</button></p>
+</form>
+{% endblock %}

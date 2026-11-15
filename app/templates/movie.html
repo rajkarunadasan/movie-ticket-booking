@@ -8,7 +8,7 @@
   <thead><tr><th>Date &amp; time</th><th>Hall</th><th>Price</th><th></th></tr></thead>
   <tbody>
   {% for s in shows %}
-    <tr><td>{{ s.show_time }}</td><td>{{ s.hall }}</td><td>&#8377;{{ s.price }}</td><td><!-- SHOW_ACTION --></td></tr>
+    <tr><td>{{ s.show_time }}</td><td>{{ s.hall }}</td><td>&#8377;{{ s.price }}</td><td><a class="btn gold" href="{{ url_for('booking.seats', show_id=s.id) }}">Book seats</a></td></tr>
   {% endfor %}
   </tbody>
 </table>
