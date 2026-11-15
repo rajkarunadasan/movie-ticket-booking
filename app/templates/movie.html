@@ -12,5 +12,22 @@
   {% endfor %}
   </tbody>
 </table>
-<!-- MOVIE_EXTRA -->
+<h2>Ratings &amp; Reviews
+  {% if average %}<span class="stars">{{ '&#9733;' * (average|round|int) }}</span> <span class="meta">{{ average }} / 5 ({{ reviews|length }})</span>{% endif %}</h2>
+{% if g.user %}
+<form method="post" action="{{ url_for('movies.add_review', movie_id=movie.id) }}" class="card" novalidate>
+  <label for="stars">Your rating</label>
+  <select id="stars" name="stars">{% for n in range(5, 0, -1) %}<option value="{{ n }}">{{ n }} star{{ 's' if n > 1 }}</option>{% endfor %}</select>
+  <label for="comment">Your review</label>
+  <textarea id="comment" name="comment" rows="3" maxlength="300"></textarea>
+  <p><button class="btn" type="submit">Submit review</button></p>
+</form>
+{% else %}
+<p class="meta"><a href="{{ url_for('auth.login') }}">Log in</a> to rate this movie.</p>
+{% endif %}
+{% for r in reviews %}
+<div class="card" style="margin-top:10px"><span class="stars">{{ '&#9733;' * r.stars }}</span> <strong>{{ r.name }}</strong><br>{{ r.comment }}</div>
+{% else %}
+<p class="meta">No reviews yet.</p>
+{% endfor %}
 {% endblock %}
