@@ -1,10 +1,14 @@
 """Seat selection and checkout (Sprints 2-3)."""
-from flask import (Blueprint, abort, flash, redirect, render_template,
+import secrets
+import sqlite3
+from datetime import datetime
+
+from flask import (Blueprint, abort, flash, g, redirect, render_template,
                    request, url_for)
 
 from .auth import login_required
 from .db import get_db
-from .validators import validate_seats
+from .validators import validate_payment, validate_seats
 
 bp = Blueprint("booking", __name__)
 
@@ -44,12 +48,67 @@ def seats(show_id):
     return render_template("seats.html", show=show, taken=taken, rows=ROWS, per_row=SEATS_PER_ROW)
 
 
-@bp.route("/shows/<int:show_id>/checkout")
+@bp.route("/shows/<int:show_id>/checkout", methods=["GET", "POST"])
 @login_required
 def checkout(show_id):
     show = get_show(show_id)
-    chosen, error = validate_seats(request.args.get("seats", "").split(","))
+    raw = request.values.get("seats", "")
+    chosen, error = validate_seats(raw.split(","))
     if error or set(chosen) & taken_seats(show_id):
         flash(error or "Some selected seats are no longer available.", "error")
         return redirect(url_for("booking.seats", show_id=show_id))
-    return render_template("checkout.html", show=show, chosen=chosen, total=len(chosen) * show["price"])
+    total = len(chosen) * show["price"]
+    if request.method == "POST":
+        method, error = validate_payment(request.form.get("payment"))
+        if error:
+            flash(error, "error")
+            return render_template("checkout.html", show=show, chosen=chosen, total=total), 400
+        # Payment is simulated for this mini-project: any valid method succeeds.
+        db = get_db()
+        reference = "CB" + secrets.token_hex(4).upper()
+        try:
+            cur = db.execute(
+                "INSERT INTO bookings (reference, user_id, show_id, total, payment, created_at) "
+                "VALUES (?,?,?,?,?,?)",
+                (reference, g.user["id"], show_id, total, method,
+                 datetime.now().strftime("%Y-%m-%d %H:%M")))
+            db.executemany("INSERT INTO booking_seats (booking_id, show_id, seat) VALUES (?,?,?)",
+                           [(cur.lastrowid, show_id, seat) for seat in chosen])
+            db.commit()
+        except sqlite3.IntegrityError:
+            db.rollback()
+            flash("Sorry, one of those seats was just booked by someone else.", "error")
+            return redirect(url_for("booking.seats", show_id=show_id))
+        flash("Payment successful. Booking confirmed!", "success")
+        return redirect(url_for("booking.ticket", reference=reference))
+    return render_template("checkout.html", show=show, chosen=chosen, total=total)
+
+
+def _booking_or_404(reference):
+    booking = get_db().execute(
+        "SELECT bookings.*, shows.hall, shows.show_time, movies.title FROM bookings "
+        "JOIN shows ON shows.id = bookings.show_id JOIN movies ON movies.id = shows.movie_id "
+        "WHERE reference = ? AND user_id = ?", (reference, g.user["id"])).fetchone()
+    if booking is None:
+        abort(404)
+    return booking
+
+
+@bp.route("/tickets/<reference>")
+@login_required
+def ticket(reference):
+    booking = _booking_or_404(reference)
+    seat_rows = get_db().execute("SELECT seat FROM booking_seats WHERE booking_id = ? ORDER BY seat",
+                                 (booking["id"],))
+    return render_template("ticket.html", booking=booking, seats=[r["seat"] for r in seat_rows])
+
+
+@bp.route("/my-bookings")
+@login_required
+def my_bookings():
+    rows = get_db().execute(
+        "SELECT bookings.*, shows.show_time, movies.title, "
+        "(SELECT GROUP_CONCAT(seat, ', ') FROM booking_seats WHERE booking_id = bookings.id) AS seats "
+        "FROM bookings JOIN shows ON shows.id = bookings.show_id JOIN movies ON movies.id = shows.movie_id "
+        "WHERE user_id = ? ORDER BY bookings.id DESC", (g.user["id"],)).fetchall()
+    return render_template("my_bookings.html", bookings=rows)
