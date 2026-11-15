@@ -25,8 +25,8 @@ def test_double_booking_is_prevented(client):
     pay(client, seats="C3")
     r = pay(client, seats="C3")
     assert r.status_code == 302 and "/seats" in r.headers["Location"]
-    assert b"my-bookings" in client.get("/").data
-    assert client.get("/my-bookings").data.count(b"CB") == 1
+    # each booking appears as one table row (header row + 1 booking)
+    assert client.get("/my-bookings").data.count(b"<tr>") == 2
 
 
 def test_invalid_payment_method_rejected(client):
