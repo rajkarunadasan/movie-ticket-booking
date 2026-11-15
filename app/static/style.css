@@ -42,3 +42,15 @@ th { background:#fafaf8; color:var(--muted); font-size:.78rem; text-transform:up
 .legend { text-align:center; font-size:.8rem; color:var(--muted); margin:10px 0 16px; }
 .ticket { background:#fff; border:2px dashed var(--gold); border-radius:10px; padding:22px; max-width:520px; }
 .ticket .ref { font-family:ui-monospace,monospace; font-size:1.3rem; color:var(--navy); letter-spacing:2px; }
+
+/* Sprint 4: responsive layout and polish */
+.btn:hover { opacity:.9; }
+.card { transition:box-shadow .15s; }
+.grid .card:hover { box-shadow:0 4px 14px rgba(19,41,75,.12); }
+footer { text-align:center; color:var(--muted); font-size:.8rem; padding:24px 0; }
+@media (max-width:600px) {
+  nav { flex-wrap:wrap; gap:10px 16px; }
+  .seat span { width:32px; padding:6px 0; }
+  .seatrow { gap:5px; }
+  table { font-size:.85rem; }
+}
