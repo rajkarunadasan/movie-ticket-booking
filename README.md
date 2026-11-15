@@ -71,7 +71,7 @@ Screenshots are in [`docs/screenshots`](docs/screenshots).
 
 ## Testing Performed and Results
 
-**46 automated tests (pytest), all passing.**
+**47 automated tests (pytest), all passing.**
 
 | Area | Cases | Result |
 |---|---|---|
@@ -82,7 +82,7 @@ Screenshots are in [`docs/screenshots`](docs/screenshots).
 | Booking | e-ticket, seats become unavailable, double-booking prevented, invalid payment, ticket privacy | Pass |
 | Reviews | login required, average, update instead of duplicate, invalid input | Pass |
 
-A test written for the booking flow initially counted the reference text twice in the page; it was fixed on branch `fix/booking-test-count`.
+Two defects were found and fixed on their own branches: a booking test that counted the reference text twice (`fix/booking-test-count`), and star ratings that rendered as escaped text instead of ★ symbols (`fix/star-rating-display`).
 
 ## Team Details and Individual Contributions
 
