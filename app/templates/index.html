@@ -1,6 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Now Showing</h1>
+<form class="toolbar" method="get" action="{{ url_for('movies.index') }}">
+  <input type="text" name="q" value="{{ q }}" placeholder="Search by title">
+  <select name="genre"><option value="">All genres</option>
+    {% for g in genres %}<option {{ 'selected' if g == genre }}>{{ g }}</option>{% endfor %}</select>
+  <select name="language"><option value="">All languages</option>
+    {% for l in languages %}<option {{ 'selected' if l == language }}>{{ l }}</option>{% endfor %}</select>
+  <button class="btn" type="submit">Search</button>
+  {% if q or genre or language %}<a class="btn secondary" href="{{ url_for('movies.index') }}">Clear</a>{% endif %}
+</form>
 {% if movies %}
 <div class="grid">
   {% for m in movies %}
@@ -13,6 +22,6 @@
   {% endfor %}
 </div>
 {% else %}
-<div class="empty">No movies found.</div>
+<div class="empty">No movies match your search.</div>
 {% endif %}
 {% endblock %}
