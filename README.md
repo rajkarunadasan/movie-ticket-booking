@@ -2,6 +2,8 @@
 
 A web-based movie ticket booking application built with **Flask and SQLite**, developed incrementally using the **Scrum framework** (four sprints) and managed with Git.
 
+**Repository:** https://github.com/rajkarunadasan/movie-ticket-booking
+
 **Team:** Raj Karunadasan (25039177205221084) and Mukesh Sundar (25039177205221072)
 **Course:** B.Tech IT B, Thiagarajar College of Engineering, Madurai
 **Subject:** Software Engineering (22IT331) &middot; **Instructor:** Dr. R. Kirubahari
@@ -37,7 +39,7 @@ Python 3.10+, Flask 3 (Jinja2), SQLite, pytest, Git and GitHub. The Assignment 1
 ## Prerequisites and Installation
 
 ```bash
-git clone https://github.com/<your-username>/movie-ticket-booking.git
+git clone https://github.com/rajkarunadasan/movie-ticket-booking.git
 cd movie-ticket-booking
 python -m venv .venv
 source .venv/bin/activate        # Windows: .venv\Scripts\activate
@@ -89,7 +91,7 @@ Two defects were found and fixed on their own branches: a booking test that coun
 | Member | Register No. | Contribution (branch) |
 |---|---|---|
 | Raj Karunadasan | 25039177205221084 | Project setup, database schema and seed data, validators, movie browsing (`feature/browse-movies`), seat selection (`feature/seat-selection`), ratings and reviews (`feature/ratings-reviews`), README |
-| Mukesh Sundar | 25039177205221072 | Authentication (`feature/user-auth`), search and filters (`feature/search-filter`), payment and e-ticket (`feature/payment-eticket`), UI improvements (`feature/ui-improvements`) |
+| Mukesh Sundar (GitHub: mumukeshsundar-dotcom) | 25039177205221072 | Authentication (`feature/user-auth`), search and filters (`feature/search-filter`), payment and e-ticket (`feature/payment-eticket`), UI improvements (`feature/ui-improvements`) |
 
 ## Git Workflow
 
