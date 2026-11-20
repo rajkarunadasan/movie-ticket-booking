@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>{{ movie.title }}</h1>
-<p class="meta"><span class="badge">{{ movie.genre }}</span> <span class="badge">{{ movie.language }}</span> &middot; {{ movie.duration }} min</p>
-<p>{{ movie.description }}</p>
+<div class="movie-banner" data-genre="{{ movie.genre }}">
+  <span class="hero-tag">{{ movie.genre }} &middot; {{ movie.language }} &middot; {{ movie.duration }} min</span>
+  <h1>{{ movie.title }}</h1>
+  <p>{{ movie.description }}</p>
+</div>
 <h2>Showtimes</h2>
 <table>
   <thead><tr><th>Date &amp; time</th><th>Hall</th><th>Price</th><th></th></tr></thead>

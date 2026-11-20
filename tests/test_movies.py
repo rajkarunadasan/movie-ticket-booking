@@ -1,7 +1,7 @@
 def test_home_lists_movies(client):
     r = client.get("/")
     assert r.status_code == 200
-    assert b"Midnight Harbor" in r.data and b"Galaxy Rangers" in r.data
+    assert b"Avengers: Doomsday" in r.data and b"Obsession" in r.data
 
 
 def test_movie_detail_shows_showtimes(client):
@@ -15,13 +15,13 @@ def test_unknown_movie_404(client):
 
 
 def test_search_by_title(client):
-    r = client.get("/?q=galaxy")
-    assert b"Galaxy Rangers" in r.data and b"Midnight Harbor" not in r.data
+    r = client.get("/?q=avengers")
+    assert b"Avengers: Doomsday" in r.data and b"Obsession" not in r.data
 
 
 def test_filter_by_genre_and_language(client):
-    r = client.get("/?genre=Drama&language=Tamil")
-    assert b"The Last Lighthouse" in r.data and b"Galaxy Rangers" not in r.data
+    r = client.get("/?genre=Drama&language=English")
+    assert b"I Play Rocky" in r.data and b"Avengers: Doomsday" not in r.data
 
 
 def test_search_without_results(client):

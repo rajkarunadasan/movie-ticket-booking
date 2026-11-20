@@ -52,16 +52,20 @@ CREATE TABLE IF NOT EXISTS reviews (
 """
 
 MOVIES = [
-    ("Midnight Harbor", "Thriller", "English", 124,
-     "A night-shift detective uncovers a smuggling ring hidden inside a sleepy port town."),
-    ("Monsoon Melodies", "Romance", "Tamil", 138,
-     "Two street musicians in Madurai find love while competing for a festival stage."),
-    ("Galaxy Rangers", "Sci-Fi", "English", 142,
-     "A ragtag crew races across the galaxy to deliver a message that could stop a war."),
-    ("Laugh Out Loud", "Comedy", "Hindi", 116,
-     "A wedding planner's perfect week falls apart when the groom's family arrives early."),
-    ("The Last Lighthouse", "Drama", "Tamil", 129,
-     "An aging keeper and a young engineer clash over the future of a historic lighthouse."),
+    ("Avengers: Doomsday", "Sci-Fi", "English", 150,
+     "As the multiverse fractures, the Avengers, Fantastic Four, and X-Men unite against Doctor Doom."),
+    ("Obsession", "Horror", "English", 108,
+     "A hopeless romantic breaks the mysterious One Wish Willow to win his crush's heart, only to face a sinister price."),
+    ("Spider-Man: Brand New Day", "Action", "English", 141,
+     "Starting fresh in New York, Peter Parker faces a dangerous new street-level threat."),
+    ("The Hunger Games: Sunrise on the Reaping", "Thriller", "English", 148,
+     "A young Haymitch Abernathy fights to survive the deadly 50th Hunger Games Quarter Quell against President Snow."),
+    ("The Odyssey", "Fantasy", "English", 165,
+     "Odysseus braves mythical perils and treacherous seas on his ten-year journey home after the Trojan War."),
+    ("How to Rob a Bank", "Comedy", "English", 118,
+     "A social-media-savvy heist crew livestreams their break-ins until a relentless FBI agent closes in."),
+    ("I Play Rocky", "Drama", "English", 126,
+     "A struggling Sylvester Stallone writes the script for Rocky and fights against all odds to star in it himself."),
 ]
 HALLS = ["Screen 1", "Screen 2", "Screen 3"]
 

@@ -62,8 +62,8 @@ Run the tests with `python -m pytest -v`.
 |---|---|---|
 | Register | `Asha Devi`, `asha@example.com`, `secret123` | Account created, redirected to login |
 | Register (weak password) | `short` | "Password must be at least 8 characters with a letter and a digit." |
-| Search | `galaxy` | Only *Galaxy Rangers* is listed |
-| Filter | Genre `Drama`, Language `Tamil` | Only *The Last Lighthouse* |
+| Search | `avengers` | Only *Avengers: Doomsday* is listed |
+| Filter | Genre `Drama`, Language `English` | Only *I Play Rocky* |
 | Select seats | `A1, A2` | Summary: 2 x price = total |
 | Pay | UPI | E-ticket with booking ID such as `CB5F3A91C2` |
 | Book a taken seat | `A1` again | "Some selected seats were just taken." |

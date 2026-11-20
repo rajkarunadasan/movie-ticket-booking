@@ -1,8 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Now Showing</h1>
+<section class="hero">
+  <span class="hero-tag">IN CINEMAS NOW</span>
+  <h1>Now Showing</h1>
+  <p>Browse current releases, pick your seats on the live screen map, and get an instant e-ticket.</p>
+</section>
 <form class="toolbar" method="get" action="{{ url_for('movies.index') }}">
-  <input type="text" name="q" value="{{ q }}" placeholder="Search by title">
+  <input type="text" name="q" value="{{ q }}" placeholder="Search by title...">
   <select name="genre"><option value="">All genres</option>
     {% for g in genres %}<option {{ 'selected' if g == genre }}>{{ g }}</option>{% endfor %}</select>
   <select name="language"><option value="">All languages</option>
@@ -13,8 +17,11 @@
 {% if movies %}
 <div class="grid">
   {% for m in movies %}
-  <div class="card">
-    <div class="poster">{{ m.title }}</div>
+  <div class="card movie-card">
+    <div class="poster" data-genre="{{ m.genre }}">
+      <span class="poster-lang">{{ m.language }}</span>
+      <span class="poster-title">{{ m.title }}</span>
+    </div>
     <h3>{{ m.title }}</h3>
     <p class="meta"><span class="badge">{{ m.genre }}</span> <span class="badge">{{ m.language }}</span> &middot; {{ m.duration }} min</p>
     <a class="btn" href="{{ url_for('movies.detail', movie_id=m.id) }}">Details &amp; Showtimes</a>
